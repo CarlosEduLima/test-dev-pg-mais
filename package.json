@@ -1,0 +1,19 @@
+{
+  "name": "test-dev-pg-mais",
+  "version": "1.0.0",
+  "description": "Pg mais dev test ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarlosEduLima/test-dev-pg-mais.git"
+  },
+  "author": "Carlos Eduardo Alves de Lima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CarlosEduLima/test-dev-pg-mais/issues"
+  },
+  "homepage": "https://github.com/CarlosEduLima/test-dev-pg-mais#readme"
+}
