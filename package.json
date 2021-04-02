@@ -12,6 +12,11 @@
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage"
   },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CarlosEduLima/test-dev-pg-mais.git"
