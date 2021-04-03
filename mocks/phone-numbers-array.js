@@ -8,8 +8,8 @@ const phoneNumbers = [
   },
   {
     IDMENSAGEM: 'e7b87f43-9aa8-414b-9cec-f28e653ac25e',
-    DDD: '34',
-    CELULAR: '990171682',
+    DDD: '55',
+    CELULAR: '929527353',
     OPERADORA: 'VIVO',
     HORARIO_ENVIO: '18:35:20',
     MENSAGEM: 'dui luctus rutrum nulla tellus in sagittis dui'
@@ -22,4 +22,5 @@ const phoneNumbers = [
     MENSAGEM: 'sit amet eros suspendisse accumsan tortor quis turpis sed ante'
   }
 ]
+
 module.exports = { phoneNumbers }
