@@ -26,15 +26,24 @@ const processFile = async (CSV) => {
 
 async function readCSV (file) {
   if (!file) {
-    return httpResponse.serverError({ error: 'No file provided' })
+    return {
+      success: false,
+      httpResponse: httpResponse.serverError({ error: 'No file provided' })
+    }
   }
   if (file.split('.').pop() !== 'csv') {
-    return httpResponse.badRequest({ error: 'Uploaded file is not CSV' })
+    return {
+      success: false,
+      httpResponse: httpResponse.badRequest({ error: 'Uploaded file is not CSV' })
+    }
   }
   const records = await processFile(file)
 
   const results = records.map(item => (createRowObject(item.id)))
-  return results
+  return {
+    success: true,
+    data: results
+  }
 }
 
 module.exports = { readCSV }
