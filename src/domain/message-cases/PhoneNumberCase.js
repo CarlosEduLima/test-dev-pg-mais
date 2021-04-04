@@ -15,6 +15,13 @@ module.exports = {
           httpResponse: HttpResponse.serverError({ error: 'Phones numbers must be an array' })
         }
       }
+      if (!phoneNumbers.length > 0) {
+        return {
+          validated: false,
+          httpResponse: HttpResponse.badRequest({ error: 'Empty array' })
+        }
+      }
+
       function validatePhoneNumber (phoneNumber) {
         return phoneNumber.DDD.length === 2 &&
         validDDDs.includes(parseInt(phoneNumber.DDD)) &&
@@ -26,7 +33,7 @@ module.exports = {
       const filteredPhoneNumbers = await phoneNumbers.filter(validatePhoneNumber)
       return {
         validated: true,
-        validPhoneNumbers: filteredPhoneNumbers
+        data: filteredPhoneNumbers
 
       }
     } catch (e) {
