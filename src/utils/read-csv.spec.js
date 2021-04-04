@@ -9,6 +9,6 @@ describe('Read CSV util', () => {
   test('should return 400 if file provided is not CSV', async () => {
     const httpResponse = await readCSV('data.txt')
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual({ error: 'Arquivo enviado não é CSV' })
+    expect(httpResponse.body).toEqual({ error: 'Uploaded file is not CSV' })
   })
 })
