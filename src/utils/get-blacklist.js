@@ -1,16 +1,23 @@
 const axios = require('axios')
-const getBlacklist = () => {
-  return axios.get('https://front-test-pg.herokuapp.com/blacklist/')
+const HttpResponse = require('./http-response')
+const getBlacklist = (url) => {
+  if (!url) {
+    return {
+      success: false,
+      httpResponse: HttpResponse.serverError({ error: 'No url provided' })
+    }
+  }
+  return axios.get(url)
     .then(response => {
       return {
         success: true,
-        data: response.data
+        httpResponse: HttpResponse.success({ data: response.data })
       }
     })
     .catch(error => {
       return {
         success: false,
-        error: error
+        httpResponse: HttpResponse.serverError({ error: error })
       }
     })
 }
