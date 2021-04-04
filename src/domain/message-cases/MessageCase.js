@@ -5,13 +5,13 @@ async function MessageCase (messages) {
     if (!messages) {
       return {
         validated: false,
-        httpResponse: HttpResponse.serverError({ error: 'No phone numbers array provided' })
+        httpResponse: HttpResponse.serverError({ error: 'No messages array provided' })
       }
     }
-    if (!Array.isArray(messages)) {
+    if (!messages.length > 0) {
       return {
         validated: false,
-        httpResponse: HttpResponse.serverError({ error: 'Phones numbers must be an array' })
+        httpResponse: HttpResponse.badRequest({ error: 'Empty array' })
       }
     }
     function validateMessage (message) {
@@ -19,7 +19,10 @@ async function MessageCase (messages) {
         message.HORARIO_ENVIO <= '19:59:59'
     }
     const filteredMessages = await messages.filter(validateMessage)
-    console.log(filteredMessages)
+    return {
+      success: true,
+      httpResponse: HttpResponse.success({ data: filteredMessages })
+    }
   } catch (e) {
     return {
       validated: false,
