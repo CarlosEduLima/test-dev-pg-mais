@@ -20,7 +20,7 @@ async function MessageCase (messages) {
     }
     const filteredMessages = await messages.filter(validateMessage)
     return {
-      success: true,
+      validated: true,
       httpResponse: HttpResponse.success({ data: filteredMessages })
     }
   } catch (e) {
