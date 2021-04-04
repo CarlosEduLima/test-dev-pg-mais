@@ -4,13 +4,14 @@ async function BlacklistCase (validPhoneNumbers) {
   try {
     if (!validPhoneNumbers) {
       return {
-        validated: false,
+        success: false,
         httpResponse: HttpResponse.serverError({ error: 'No phone numbers array provided' })
       }
     }
     const blacklist = await getBlacklist('https://front-test-pg.herokuapp.com/blacklist')
     if (!blacklist.success) {
       return {
+        success: false,
         httpResponse: HttpResponse.serverError({ error: blacklist.httpResponse.error })
       }
     }
@@ -29,7 +30,10 @@ async function BlacklistCase (validPhoneNumbers) {
       data: filteredPhoneNumbers
     }
   } catch (e) {
-    console.log(e)
+    return {
+      success: false,
+      httpResponse: HttpResponse.serverError({ error: e })
+    }
   }
 }
 module.exports = { BlacklistCase }
