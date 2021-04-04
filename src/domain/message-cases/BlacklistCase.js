@@ -8,20 +8,14 @@ async function BlacklistCase (validPhoneNumbers) {
         httpResponse: HttpResponse.serverError({ error: 'No phone numbers array provided' })
       }
     }
-    if (!Array.isArray(validPhoneNumbers)) {
-      return {
-        validated: false,
-        httpResponse: HttpResponse.serverError({ error: 'Phones numbers must be an array' })
-      }
-    }
-    const blacklist = await getBlacklist()
+    const blacklist = await getBlacklist('https://front-test-pg.herokuapp.com/blacklist')
     if (!blacklist.success) {
       return {
-        httpResponse: HttpResponse.serverError({ error: blacklist.error })
+        httpResponse: HttpResponse.serverError({ error: blacklist.httpResponse.error })
       }
     }
     const blacklistPhones = []
-    blacklist.data.map(item => (
+    blacklist.httpResponse.body.data.map(item => (
       blacklistPhones.push(item.phone)
     ))
 
@@ -32,7 +26,7 @@ async function BlacklistCase (validPhoneNumbers) {
     const filteredPhoneNumbers = await validPhoneNumbers.filter(checkBlacklist)
     return {
       success: true,
-      phoneNumbers: filteredPhoneNumbers
+      data: filteredPhoneNumbers
     }
   } catch (e) {
     console.log(e)
