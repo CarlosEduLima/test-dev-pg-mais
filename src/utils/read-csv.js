@@ -1,7 +1,6 @@
 const csv = require('csv-parser')
 const httpResponse = require('./http-response')
 const fs = require('fs')
-let results = []
 const createRowObject = (row) => {
   const [IDMENSAGEM, DDD, CELULAR, OPERADORA, HORARIO_ENVIO, MENSAGEM] = row.split(';')
   return {
@@ -13,21 +12,29 @@ const createRowObject = (row) => {
     MENSAGEM
   }
 }
-async function readCSV (CSV) {
-  if (!CSV) {
+
+const processFile = async (CSV) => {
+  const records = []
+  const parser = fs
+    .createReadStream(CSV)
+    .pipe(csv(['id']))
+  for await (const record of parser) {
+    records.push(record)
+  }
+  return records
+}
+
+async function readCSV (file) {
+  if (!file) {
     return httpResponse.serverError({ error: 'No file provided' })
   }
-  if (CSV.split('.').pop() !== 'csv') {
-    return httpResponse.badRequest({ error: 'Arquivo enviado não é CSV' })
+  if (file.split('.').pop() !== 'csv') {
+    return httpResponse.badRequest({ error: 'Uploaded file is not CSV' })
   }
-  await fs.createReadStream(CSV)
-    .pipe(csv(['id']))
-    .on('data', (data) => results.push(data))
-    .on('end', () => {
-      results = results.map(item => (createRowObject(item.id)))
+  const records = await processFile(file)
 
-      console.log(results)
-    })
+  const results = records.map(item => (createRowObject(item.id)))
+  return results
 }
 
 module.exports = { readCSV }
