@@ -16,7 +16,7 @@ describe('Message case', () => {
   })
   test('should return validated true if phone numbers were validated', async () => {
     const validPhoneNumbers = await MessageCase(phoneNumbers)
-    expect(validPhoneNumbers.success).toBe(true)
+    expect(validPhoneNumbers.validated).toBe(true)
     expect(validPhoneNumbers.httpResponse.statusCode).toBe(200)
   })
 })
