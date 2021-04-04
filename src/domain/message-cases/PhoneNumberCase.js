@@ -37,7 +37,10 @@ module.exports = {
 
       }
     } catch (e) {
-      console.log(e)
+      return {
+        validated: false,
+        httpResponse: HttpResponse.serverError({ error: 'Cannot validate phone number' })
+      }
     }
   }
 }
