@@ -4,8 +4,7 @@
   "description": "Pg mais dev test ",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index",
-    "start": "node src/index",
+    "start": "node src/controllers/MessageController.js",
     "test": "jest --passWithNoTests",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:integration": "npm test -- -c jest-integration-config.js",
